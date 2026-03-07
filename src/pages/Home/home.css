@@ -1,0 +1,31 @@
+/* Home Screen */
+
+.home-screen {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.home-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.home-content {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.home-actions {
+    margin-top: 30px;
+}
