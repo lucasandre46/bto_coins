@@ -1,0 +1,96 @@
+.market-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.market-card:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.card-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-logo-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.symbol {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    flex: 1;
+    text-align: center;
+}
+
+.card-body .price {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.card-footer {
+    flex: 1;
+    text-align: right;
+}
+
+.footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.change {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.positive {
+    color: #4ade80;
+}
+
+.negative {
+    color: #f87171;
+}
+
+.favorite-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-btn:hover {
+    color: #facc15;
+    transform: scale(1.2);
+}

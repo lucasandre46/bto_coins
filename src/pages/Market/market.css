@@ -1,86 +1,73 @@
 /* Market Screen */
 
-.market-scrollable-area {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 40px;
-}
-
-.market-card {
+.market-single-area {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    transition: transform 0.2s ease, background 0.2s ease;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 10px;
+    width: 100%;
 }
 
-.market-card:hover {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.card-header {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.card-container {
     flex: 1;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.symbol {
-    font-weight: 700;
-    font-size: 1.2rem;
+.nav-arrow {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.type-badge {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    width: fit-content;
+.nav-arrow:hover:not(:disabled) {
+    color: #fff;
+    transform: scale(1.1);
 }
 
-.crypto {
-    background: rgba(247, 147, 26, 0.2);
-    color: #f7931a;
+.nav-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.stock {
-    background: rgba(0, 210, 255, 0.2);
-    color: var(--accent-color);
+.active-login {
+    background-color: rgba(74, 222, 128, 0.2);
+    border-color: #4ade80;
+    color: #4ade80;
 }
 
-.card-body {
-    flex: 2;
-    text-align: left;
-}
-
-.card-body .name {
+.loading-indicator,
+.end-indicator {
+    text-align: center;
+    padding: 20px;
     color: var(--text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-.card-body .price {
-    font-size: 1.3rem;
-    font-weight: 600;
+.loading-indicator {
+    animation: pulse 1.5s infinite;
 }
 
-.card-footer {
-    flex: 1;
-    text-align: right;
-}
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
 
-.change {
-    font-weight: 600;
-    font-size: 1.1rem;
-}
+    50% {
+        opacity: 1;
+    }
 
-.positive {
-    color: var(--positive);
-}
-
-.negative {
-    color: var(--negative);
+    100% {
+        opacity: 0.6;
+    }
 }

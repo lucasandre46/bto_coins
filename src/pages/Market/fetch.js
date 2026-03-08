@@ -1,11 +1,26 @@
-export function fetchMarketData() {
-    console.log("Fetching market data (mock)...");
-    return Promise.resolve([
-        { id: 1, symbol: 'BTC', name: 'Bitcoin', price: 65000, type: 'crypto', change: 1.5 },
-        { id: 2, symbol: 'ETH', name: 'Ethereum', price: 3400, type: 'crypto', change: -0.2 },
-        { id: 3, symbol: 'PETR4', name: 'Petrobras', price: 38.5, type: 'stock', change: 2.1 },
-        { id: 4, symbol: 'VALE3', name: 'Vale', price: 62.1, type: 'stock', change: -1.1 },
-        { id: 5, symbol: 'SOL', name: 'Solana', price: 145, type: 'crypto', change: 5.4 },
-        { id: 6, symbol: 'ITUB4', name: 'Itaú', price: 33.2, type: 'stock', change: 0.5 }
-    ]);
+const API_BASE_URL = 'http://localhost:3000/market'; // Já incluí o /market aqui
+
+export const AVAILABLE_SYMBOLS = [
+    'BTC', 'ETH', 'USDT', 'BNB', 'SOL', 'XRP', 'USDC', 'ADA', 'AVAX', 'DOGE',
+    'PETR4', 'VALE3', 'ITUB4', 'BBDC4', 'BBAS3', 'ABEV3', 'WEGE3', 'ELET3', 'RENT3', 'JBSS3',
+    'B3SA3', 'RADL3', 'SUZB3', 'BPAC11', 'EQTL3', 'VIVT3', 'SBSP3', 'HAPV3', 'LREN3', 'RDOR3'
+];
+
+export async function fetchMarketData(symbols) {
+    if (!symbols || symbols.length === 0) return [];
+
+    try {
+        const query = symbols.join(',');
+        // A URL final será http://localhost:3000/market/cards?symbols=BTC,ETH...
+        const response = await fetch(`${API_BASE_URL}/card?symbols=${query}`);
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar dados do mercado: status ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Erro na API de mercado:", error);
+        return [];
+    }
 }
