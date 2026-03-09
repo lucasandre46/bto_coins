@@ -19,19 +19,20 @@ export default function Market() {
             setLoading(true);
             const symbol = AVAILABLE_SYMBOLS[currentIndex];
 
-            // fetchMarketData expects an array of symbols
+            // Busca os dados (que agora incluem o 'history' do seu novo Service)
             const items = await fetchMarketData([symbol]);
 
             if (isMounted) {
                 if (items && items.length > 0) {
                     setCurrentItem(items[0]);
                 } else {
-                    // Fallback to placeholder data if API fails or doesn't return the symbol
+                    // Fallback de segurança
                     setCurrentItem({
                         symbol: symbol,
                         price: 0,
                         change: 0,
-                        logo: ''
+                        logo: '',
+                        history: []
                     });
                 }
                 setLoading(false);
@@ -64,29 +65,26 @@ export default function Market() {
 
     const handleCardClick = (symbol) => {
         if (!isAuthenticated) {
-            alert("Você precisa estar logado para abrir o perfil deste ativo!");
+            alert("Você precisa estar logado para abrir o perfil!");
             return;
         }
-        alert(`Abrindo o perfil de ${symbol}...`);
-        // navigate(`/profile`);
+        navigate(`/profile/${symbol}`);
     };
 
     return (
-        <div className="page-container market-screen">
-            <header className="page-header">
-                <h1>Mercado</h1>
-            </header>
+        <div className="market-screen">
+            {/* Título "Mercado" removido daqui */}
 
             <main className="market-single-area">
                 <button className="nav-arrow left-arrow" onClick={handlePrev} disabled={loading}>
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
                 </button>
 
                 <div className="card-container">
                     {loading ? (
-                        <div className="loading-indicator large">Buscando moedas...</div>
+                        <div className="loading-indicator large">Buscando dados em tempo real...</div>
                     ) : (
                         currentItem && (
                             <MarketCard
@@ -94,6 +92,7 @@ export default function Market() {
                                 price={currentItem.price}
                                 change={currentItem.change}
                                 logo={currentItem.logo}
+                                history={currentItem.history}
                                 onCardClick={handleCardClick}
                                 onFavoriteClick={handleFavorite}
                             />
@@ -102,7 +101,7 @@ export default function Market() {
                 </div>
 
                 <button className="nav-arrow right-arrow" onClick={handleNext} disabled={loading}>
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </button>

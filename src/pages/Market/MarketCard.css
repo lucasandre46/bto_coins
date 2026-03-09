@@ -1,96 +1,91 @@
-.market-card {
+.market-card-dashboard {
+    width: 100%;
+    max-width: 1800px;
+    /* Cinema mode: larger limits */
+    height: 90vh;
+    min-height: 600px;
+    padding: 50px;
+    border-radius: 40px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* ... resto dos seus estilos ... */
+}
+
+.card-top-section {
+    display: flex;
     justify-content: space-between;
-    padding: 20px;
-    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
+    align-items: flex-start;
 }
 
-.market-card:hover {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.card-header {
+.asset-info {
     display: flex;
     align-items: center;
-    gap: 12px;
-    flex: 1;
+    gap: 15px;
 }
 
-.card-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: rgba(255, 255, 255, 0.1);
+.dashboard-logo {
+    width: 90px;
+    /* Logo maior para acompanhar o card */
+    height: 90px;
+    border-radius: 20px;
 }
 
-.card-logo-placeholder {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.dashboard-symbol {
+    font-size: 3rem;
+    /* Nome da moeda maior */
+    font-weight: 800;
 }
 
-.symbol {
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.card-body {
-    flex: 1;
-    text-align: center;
-}
-
-.card-body .price {
-    font-size: 1.3rem;
+.dashboard-change {
+    font-size: 1rem;
     font-weight: 600;
 }
 
-.card-footer {
-    flex: 1;
+.price-info {
     text-align: right;
-}
-
-.footer-actions {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    gap: 10px;
 }
 
-.change {
-    font-weight: 600;
-    font-size: 1.1rem;
+.dashboard-price {
+    font-size: 5rem;
+    /* Preço gigante como na sua imagem */
+    font-weight: 900;
+    letter-spacing: -2px;
 }
 
-.positive {
-    color: #4ade80;
+.card-graph-area {
+    width: 100%;
+    flex: 1;
+    min-height: 300px;
+    /* Mais espaço para a linha do gráfico brilhar */
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    margin-top: 30px;
+    padding: 20px;
 }
 
-.negative {
-    color: #f87171;
-}
-
-.favorite-btn {
-    background: transparent;
+.favorite-btn-dashboard {
+    background: rgba(255, 255, 255, 0.1);
     border: none;
-    color: var(--text-secondary);
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: 0.2s;
 }
 
-.favorite-btn:hover {
-    color: #facc15;
-    transform: scale(1.2);
+.favorite-btn-dashboard:hover {
+    background: #facc15;
+    color: #000;
+}
+
+.card-footer-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
