@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMarketData, AVAILABLE_SYMBOLS } from './fetch';
+import { fetchMarketData, AVAILABLE_SYMBOLS, toggleFavorite } from './fetch';
 import { useNavigate } from 'react-router-dom';
 import MarketCard from './MarketCard';
 import '../../index.css';
@@ -9,8 +9,21 @@ export default function Market() {
     const [currentItem, setCurrentItem] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [favorites, setFavorites] = useState([]);
     const navigate = useNavigate();
     const isAuthenticated = !!localStorage.getItem('@btocoins:token');
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            import('../Profile/fetch').then(module => {
+                module.fetchUserProfile().then(data => {
+                    if (data && data.favoritos) {
+                        setFavorites(data.favoritos);
+                    }
+                }).catch(err => console.error("Erro ao carregar favoritos inicial:", err));
+            });
+        }
+    }, [isAuthenticated]);
 
     useEffect(() => {
         let isMounted = true;
@@ -54,13 +67,26 @@ export default function Market() {
         setCurrentIndex((prev) => (prev - 1 + AVAILABLE_SYMBOLS.length) % AVAILABLE_SYMBOLS.length);
     };
 
-    const handleFavorite = (e, symbol) => {
+    const handleFavorite = async (e, symbol) => {
         e.stopPropagation();
         if (!isAuthenticated) {
             alert("Você precisa estar logado para favoritar!");
             return;
         }
-        alert(`Ativo ${symbol} favoritado!`);
+
+        try {
+            const result = await toggleFavorite(symbol);
+            alert(result.message);
+
+            // Update local state immediately
+            if (favorites.includes(symbol)) {
+                setFavorites(prev => prev.filter(s => s !== symbol));
+            } else {
+                setFavorites(prev => [...prev, symbol]);
+            }
+        } catch (error) {
+            alert("Erro ao favoritar: " + error.message);
+        }
     };
 
     const handleCardClick = (symbol) => {
@@ -93,6 +119,7 @@ export default function Market() {
                                 change={currentItem.change}
                                 logo={currentItem.logo}
                                 history={currentItem.history}
+                                isFavorited={favorites.includes(currentItem.symbol)}
                                 onCardClick={handleCardClick}
                                 onFavoriteClick={handleFavorite}
                             />

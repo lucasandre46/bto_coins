@@ -75,11 +75,27 @@
     border-radius: 50%;
     cursor: pointer;
     transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-btn-dashboard svg {
+    width: 24px;
+    height: 24px;
 }
 
 .favorite-btn-dashboard:hover {
-    background: #facc15;
-    color: #000;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.favorite-btn-dashboard.favorited {
+    color: #facc15;
+    /* Yellow star */
+}
+
+.favorite-btn-dashboard.favorited:hover {
+    background: rgba(250, 204, 21, 0.2);
 }
 
 .card-footer-hint {

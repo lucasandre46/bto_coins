@@ -1,0 +1,69 @@
+.mini-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1rem;
+    padding: 20px !important;
+    min-height: auto !important;
+    height: auto !important;
+    border-radius: 20px !important;
+}
+
+.mini-card .dashboard-logo {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+}
+
+.mini-card .dashboard-logo-placeholder {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+}
+
+.mini-card .dashboard-symbol {
+    font-size: 1.4rem !important;
+}
+
+.mini-card .dashboard-change {
+    font-size: 0.9rem !important;
+}
+
+.mini-card .dashboard-price {
+    font-size: 1.8rem !important;
+    letter-spacing: -1px !important;
+}
+
+.mini-card .favorite-btn-dashboard {
+    padding: 6px !important;
+}
+
+.mini-card .favorite-btn-dashboard svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.mini-card .asset-info {
+    gap: 10px !important;
+}
+
+.mini-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.favorites-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.favorites-section h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}

@@ -27,3 +27,23 @@ export async function fetchMarketData(symbols) {
         return [];
     }
 }
+
+export async function toggleFavorite(symbol) {
+    const token = localStorage.getItem('@btocoins:token');
+    if (!token) throw new Error("Usuário não autenticado");
+
+    const response = await fetch(`http://localhost:3000/profile/favorite`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ symbol })
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao favoritar");
+    }
+
+    return await response.json();
+}
