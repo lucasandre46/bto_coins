@@ -65,29 +65,31 @@ export default function MarketCard({
             </div>
 
             {/* Centro: Área do Gráfico */}
-            <div className="card-graph-area" style={{ border: 'none', outline: 'none' }}>
+            <div className="card-graph-area" style={{ border: 'none', outline: 'none', display: 'flex', flexDirection: 'column' }}>
                 {chartData.length > 0 ? (
-                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={chartData}>
-                            <YAxis hide domain={['auto', 'auto']} />
-                            <Tooltip
-                                contentStyle={{ backgroundColor: '#1a1a1a', border: 'none', borderRadius: '8px', color: '#fff' }}
-                                itemStyle={{ color: '#fff' }}
-                                labelStyle={{ display: 'none' }}
-                                formatter={(value) => [formatCurrency(value), 'Preço']}
-                            />
-                            <Line
-                                type="monotone"
-                                dataKey="price"
-                                stroke={isPositive ? "#4ade80" : "#f87171"}
-                                strokeWidth={4}
-                                dot={false}
-                                isAnimationActive={true}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    <div style={{ flex: 1, width: '100%', minHeight: 0 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={chartData}>
+                                <YAxis hide domain={['auto', 'auto']} />
+                                <Tooltip
+                                    contentStyle={{ backgroundColor: '#1a1a1a', border: 'none', borderRadius: '8px', color: '#fff' }}
+                                    itemStyle={{ color: '#fff' }}
+                                    labelStyle={{ display: 'none' }}
+                                    formatter={(value) => [formatCurrency(value), 'Preço']}
+                                />
+                                <Line
+                                    type="monotone"
+                                    dataKey="price"
+                                    stroke={isPositive ? "#4ade80" : "#f87171"}
+                                    strokeWidth={4}
+                                    dot={false}
+                                    isAnimationActive={true}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
                 ) : (
-                    <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)' }}>
+                    <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.5)' }}>
                         Nenhum dado de gráfico disponível
                     </div>
                 )}
