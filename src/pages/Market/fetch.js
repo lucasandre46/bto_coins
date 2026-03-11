@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/market'; // Já incluí o /market aqui
+const API_BASE_URL = 'https://bto-api-isoj.vercel.app/market'; // Já incluí o /market aqui
 
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
@@ -32,7 +32,7 @@ export async function toggleFavorite(symbol) {
     const token = localStorage.getItem('@btocoins:token');
     if (!token) throw new Error("Usuário não autenticado");
 
-    const response = await fetch(`http://localhost:3000/profile/favorite`, {
+    const response = await fetch(`https://bto-api-isoj.vercel.app/profile/favorite`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
