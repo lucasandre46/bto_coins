@@ -1,39 +1,54 @@
-const API_BASE_URL = 'https://bto-api-isoj.vercel.app'; // Ajuste conforme a porta da sua API
+import { supabase } from '../../lib/supabase';
 
 export async function loginUser(email, senha) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, senha })
-        });
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha,
+    });
 
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.message || 'Erro ao fazer login.');
-        }
-        return data; // Pode conter token, user info etc.
-    } catch (error) {
-        throw error;
+    if (error) {
+        throw new Error(error.message);
     }
+
+    return {
+        token: data.session?.access_token,
+        user: data.user
+    };
 }
 
 export async function registerUser(nome, email, senha, telefone) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, email, senha, telefone })
-        });
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password: senha,
+        options: {
+            data: {
+                full_name: nome, // Padronizado para o Supabase dashboard
+                phone: telefone, // Padronizado para o Supabase dashboard
+            },
+        },
+    });
 
-        const data = await response.json();
-        if (!response.ok) {
-            // Se for um array de mensagens de erro (comum no class-validator do Nest)
-            const errorMsg = Array.isArray(data.message) ? data.message[0] : (data.message || 'Erro ao cadastrar.');
-            throw new Error(errorMsg);
-        }
-        return data;
-    } catch (error) {
-        throw error;
+    if (error) {
+        throw new Error(error.message);
     }
+
+    return {
+        token: data.session?.access_token,
+        user: data.user
+    };
+}
+
+export async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin + '/profile'
+        }
+    });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
 }
