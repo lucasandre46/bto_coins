@@ -27,7 +27,8 @@ body {
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
-  line-height: 1.5;
+  font-size: 1.15rem; /* Aumentado para preencher a tela */
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -54,10 +55,12 @@ a {
 }
 
 .page-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

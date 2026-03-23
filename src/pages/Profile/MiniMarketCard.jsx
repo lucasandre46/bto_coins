@@ -4,14 +4,14 @@ import { formatCurrency, formatPercentage } from '../Market/functions';
 import '../Market/MarketCard.css'; // Uses same basic styling
 import './MiniMarketCard.css';
 
-export default function MiniMarketCard({ symbol, price, change, logo, onFavoriteClick }) {
+export default function MiniMarketCard({ symbol, price, change, logo, onFavoriteClick, onClick }) {
     const isPositive = change >= 0;
     const navigate = useNavigate();
 
     return (
         <div
             className="market-card-dashboard glass-panel mini-card"
-            onClick={() => navigate(`/profile/${symbol}`)}
+            onClick={() => onClick ? onClick(symbol) : navigate(`/profile/${symbol}`)}
         >
             <div className="card-top-section" style={{ borderBottom: 'none', paddingBottom: 0 }}>
                 <div className="asset-info">

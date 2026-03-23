@@ -7,12 +7,18 @@ import MiniMarketCard from './MiniMarketCard';
 import '../../index.css';
 import './profile.css';
 import './MiniMarketCard.css';
+import MarketCard from '../Market/MarketCard';
 
 export default function Profile() {
     const [user, setUser] = useState(null);
     const [favoritesData, setFavoritesData] = useState([]);
     const [loadingFavorites, setLoadingFavorites] = useState(false);
     const [error, setError] = useState(null);
+    
+    // Split View States
+    const [selectedAsset, setSelectedAsset] = useState(null);
+    const [selectedAssetData, setSelectedAssetData] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +29,7 @@ export default function Profile() {
                     loadFavoritesData(data.favoritos);
                 }
             })
-            .catch(err => {
+            .catch(() => {
                 setError("Erro ao carregar perfil. Faça login novamente.");
                 localStorage.removeItem('@btocoins:token');
                 setTimeout(() => navigate('/auth'), 2000);
@@ -59,59 +65,93 @@ export default function Profile() {
         }
     };
 
+    const handleAssetSelect = (symbol) => {
+        const asset = favoritesData.find(f => f.symbol === symbol);
+        setSelectedAsset(symbol);
+        setSelectedAssetData(asset);
+    };
+
+    const handleCloseSplit = () => {
+        setSelectedAsset(null);
+        setSelectedAssetData(null);
+    };
+
     if (error) return <div className="page-container"><p style={{ color: 'red' }}>{error}</p></div>;
     if (!user) return <div className="page-container"><p>Carregando perfil...</p></div>;
 
     return (
-        <div className="page-container profile-screen">
+        <div className="page-container profile-screen-wrapper">
             <header className="page-header">
                 <h1>Meu Perfil</h1>
                 <a href="/" className="btn-secondary">Voltar ao Início</a>
             </header>
 
-            <main className="profile-content glass-panel">
-                <div className="profile-info">
-                    <div className="avatar-placeholder">
-                        {user.nome ? user.nome.charAt(0).toUpperCase() : '?'}
-                    </div>
-                    <div className="details">
-                        <h2>{user.nome}</h2>
-                        <p className="email">{user.email}</p>
-                        <p className="member-since">Telefone: {user.telefone}</p>
-                    </div>
-                </div>
+            <div className={`profile-split-container ${selectedAsset ? 'split-active' : ''}`}>
+                <div className="profile-left-panel">
+                    <main className="profile-content glass-panel" style={{ margin: 0 }}>
+                        <div className="profile-info">
+                            <div className="avatar-placeholder">
+                                {user.nome ? user.nome.charAt(0).toUpperCase() : '?'}
+                            </div>
+                            <div className="details">
+                                <h2>{user.nome}</h2>
+                                <p className="email">{user.email}</p>
+                                <p className="member-since">Telefone: {user.telefone}</p>
+                            </div>
+                        </div>
 
-                <div className="profile-actions">
-                    <button className="btn-primary" onClick={() => alert("Editar não implementado na base")}>
-                        Editar Perfil
-                    </button>
-                    <button className="btn-danger" onClick={handleLogout}>
-                        Sair da Conta
-                    </button>
-                </div>
+                        <div className="profile-actions">
+                            <button className="btn-primary" onClick={() => alert("Editar não implementado na base")}>
+                                Editar Perfil
+                            </button>
+                            <button className="btn-danger" onClick={handleLogout}>
+                                Sair da Conta
+                            </button>
+                        </div>
 
-                {user.favoritos && user.favoritos.length > 0 && (
-                    <div className="favorites-section">
-                        <h3>Meus Ativos Favoritos</h3>
-                        {loadingFavorites ? (
-                            <p>Carregando cotações...</p>
-                        ) : (
-                            <div className="favorites-list">
-                                {favoritesData.map((favItem) => (
-                                    <MiniMarketCard
-                                        key={favItem.symbol}
-                                        symbol={favItem.symbol}
-                                        price={favItem.price}
-                                        change={favItem.change}
-                                        logo={favItem.logo}
-                                        onFavoriteClick={handleFavoriteClick}
-                                    />
-                                ))}
+                        {user.favoritos && user.favoritos.length > 0 && (
+                            <div className="favorites-section">
+                                <h3>Meus Ativos Favoritos</h3>
+                                {loadingFavorites ? (
+                                    <p>Carregando cotações...</p>
+                                ) : (
+                                    <div className="favorites-list">
+                                        {favoritesData.map((favItem) => (
+                                            <MiniMarketCard
+                                                key={favItem.symbol}
+                                                symbol={favItem.symbol}
+                                                price={favItem.price}
+                                                change={favItem.change}
+                                                logo={favItem.logo}
+                                                onFavoriteClick={handleFavoriteClick}
+                                                onClick={handleAssetSelect}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
-                    </div>
-                )}
-            </main>
+                    </main>
+                </div>
+
+                <div className="profile-right-panel chart-drawer">
+                    {selectedAsset && selectedAssetData && (
+                        <div className="chart-drawer-content" style={{ height: '100%' }}>
+                            <MarketCard
+                                symbol={selectedAssetData.symbol}
+                                price={selectedAssetData.price}
+                                change={selectedAssetData.change}
+                                logo={selectedAssetData.logo}
+                                history={selectedAssetData.history}
+                                isFavorited={true}
+                                onCardClick={() => {}} 
+                                onFavoriteClick={handleFavoriteClick}
+                                onClose={handleCloseSplit}
+                            />
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

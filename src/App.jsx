@@ -35,7 +35,7 @@ function Navigation() {
 function App() {
   return (
     <Router>
-      <Navigation />
+      {/* Navegação global removida a pedido */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/market" element={<Market />} />

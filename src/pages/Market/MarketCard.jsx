@@ -11,7 +11,8 @@ export default function MarketCard({
     history = [], // Recebe o array de preços do backend
     isFavorited = false,
     onCardClick,
-    onFavoriteClick
+    onFavoriteClick,
+    onClose // Recebe função para fechar caso renderizado como painel lateral
 }) {
     const isPositive = change >= 0;
 
@@ -21,7 +22,17 @@ export default function MarketCard({
         : [];
 
     return (
-        <div className="market-card-dashboard glass-panel" onClick={() => onCardClick(symbol)}>
+        <div className="market-card-dashboard glass-panel" onClick={() => onCardClick && onCardClick(symbol)}>
+            {/* Botão de Fechar opcional (para Painel Lateral) */}
+            {onClose && (
+                <button 
+                    onClick={(e) => { e.stopPropagation(); onClose(); }} 
+                    style={{ position: 'absolute', top: 15, right: 15, padding: '5px 12px', fontSize: '1.2rem', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', color: '#fff', cursor: 'pointer', zIndex: 10, transition: '0.3s' }}
+                    onMouseOver={(e) => e.currentTarget.style.background='rgba(255,61,0,0.5)'}
+                    onMouseOut={(e) => e.currentTarget.style.background='rgba(255,255,255,0.1)'}
+                >✕</button>
+            )}
+
             {/* Topo: Identificação e Preço */}
             <div className="card-top-section">
                 <div className="asset-info">
@@ -95,9 +106,6 @@ export default function MarketCard({
                 )}
             </div>
 
-            <div className="card-footer-hint">
-                Últimos 5 dias...
-            </div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://bto-api-isoj.vercel.app'; // Ajuste conforme a porta da conexão
+const API_BASE_URL = 'http://localhost:3000'; // Ajuste conforme a porta da conexão
 
 export async function fetchUserProfile() {
     console.log("Fetching user profile from API...");
