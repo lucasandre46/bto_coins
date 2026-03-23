@@ -1,6 +1,6 @@
 import { supabase } from '../../lib/supabase';
 
-const API_BASE_URL = 'https://bto-api-isoj.vercel.app/market';
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'}/market`;
 
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
@@ -11,7 +11,9 @@ export async function fetchMarketData(symbols) {
 
     try {
         const query = symbols.join(',');
-        const response = await fetch(`${API_BASE_URL}/card?symbols=${query}`);
+        const targetUrl = `${API_BASE_URL}/card?symbols=${query}`;
+        console.log("Chamando API:", targetUrl);
+        const response = await fetch(targetUrl);
 
         if (!response.ok) {
             throw new Error(`Erro ao buscar dados do mercado: status ${response.status}`);
