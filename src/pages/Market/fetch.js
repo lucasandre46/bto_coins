@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:3000/market'; // Já incluí o /market aqui
+import { supabase } from '../../lib/supabase';
+
+const API_BASE_URL = 'https://bto-api-isoj.vercel.app/market';
 
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
@@ -9,7 +11,6 @@ export async function fetchMarketData(symbols) {
 
     try {
         const query = symbols.join(',');
-        // IMPORTANTE: Confira se no seu Controller está @Get('card') ou @Get('cards')
         const response = await fetch(`${API_BASE_URL}/card?symbols=${query}`);
 
         if (!response.ok) {
@@ -17,10 +18,7 @@ export async function fetchMarketData(symbols) {
         }
 
         const data = await response.json();
-
-        // Log para você conferir no console do navegador se o history está vindo
         console.log("Dados recebidos da API:", data);
-
         return data;
     } catch (error) {
         console.error("Erro na API de mercado:", error);
@@ -29,21 +27,47 @@ export async function fetchMarketData(symbols) {
 }
 
 export async function toggleFavorite(symbol) {
-    const token = localStorage.getItem('@btocoins:token');
-    if (!token) throw new Error("Usuário não autenticado");
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Usuário não autenticado");
 
-    const response = await fetch(`http://localhost:3000/profile/favorite`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ symbol })
-    });
+    console.log(`Tentando favoritar ${symbol} para user_id: ${user.id}`);
 
-    if (!response.ok) {
-        throw new Error("Erro ao favoritar");
+    // CORRIGIDO: user_favorites (Inglês)
+    const { data: existing, error: fetchError } = await supabase
+        .from('user_favorites')
+        .select()
+        .eq('user_id', user.id)
+        .eq('symbol', symbol)
+        .maybeSingle();
+
+    if (fetchError) {
+        console.error("Erro ao verificar favorito:", fetchError.message);
+        throw new Error("Erro ao verificar favorito");
     }
 
-    return await response.json();
+    if (existing) {
+        // Unfavorite
+        const { error: deleteError } = await supabase
+            .from('user_favorites')
+            .delete()
+            .eq('user_id', user.id)
+            .eq('symbol', symbol);
+
+        if (deleteError) {
+            console.error("Erro ao remover favorito:", deleteError.message);
+            throw new Error("Erro ao remover favorito");
+        }
+        return { message: 'Removido', symbol };
+    } else {
+        // Favorite
+        const { error: insertError } = await supabase
+            .from('user_favorites')
+            .insert({ user_id: user.id, symbol: symbol });
+
+        if (insertError) {
+            console.error("Erro ao adicionar favorito:", insertError.message);
+            throw new Error("Erro ao adicionar favorito");
+        }
+        return { message: 'Adicionado', symbol };
+    }
 }
