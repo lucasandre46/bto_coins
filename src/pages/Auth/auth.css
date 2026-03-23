@@ -116,3 +116,54 @@
     padding: 10px;
     border-radius: 6px;
 }
+
+/* Social Buttons */
+.btn-google {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.btn-google:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.btn-google svg {
+    width: 18px;
+    height: 18px;
+}
+
+.social-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-secondary, #666);
+    margin: 15px 0;
+}
+
+.social-divider::before, 
+.social-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-divider span {
+    padding: 0 10px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
