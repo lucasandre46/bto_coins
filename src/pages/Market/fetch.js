@@ -9,10 +9,15 @@ export async function fetchMarketData(symbols) {
     if (!symbols || symbols.length === 0) return [];
 
     try {
+        const token = localStorage.getItem('@btocoins:token'); // Token salvo no login
         const query = symbols.join(',');
         const targetUrl = `${API_BASE_URL}/card?symbols=${query}`;
-        console.log("Chamando API:", targetUrl);
-        const response = await fetch(targetUrl);
+        
+        const response = await fetch(targetUrl, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
 
         if (!response.ok) {
             throw new Error(`Erro ao buscar dados do mercado: status ${response.status}`);
