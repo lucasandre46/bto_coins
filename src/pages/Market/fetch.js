@@ -1,6 +1,7 @@
 import { supabase } from '../../lib/supabase';
 
-const API_BASE_URL = 'https://bto-api-isoj.vercel.app/market';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bto-api-isoj.vercel.app/market';
+const CRYPTO_API_URL = import.meta.env.VITE_API_CRYPTO_URL || API_BASE_URL.replace('/market', '/crypto');
 
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
@@ -22,6 +23,38 @@ export async function fetchMarketData(symbols) {
         return data;
     } catch (error) {
         console.error("Erro na API de mercado:", error);
+        return [];
+    }
+}
+
+export async function fetchTopCryptoData() {
+    try {
+        const response = await fetch(`${CRYPTO_API_URL}/top-coins`);
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar dados de cripto: status ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Dados de cripto recebidos:", data);
+
+        // A API de crypto retorna um formato diferente (do getTopCoins do NestJS)
+        // Precisamos garantir que o formato seja compatível com o MarketCard
+        return data.map(coin => ({
+            id: coin.id,
+            symbol: coin.symbol,
+            name: coin.name,
+            price: coin.price,
+            change: coin.change24h,      // alias used by MiniMarketCard / stock code
+            change24h: coin.change24h,   // original field used by CryptoCard
+            logo: coin.image,            // alias
+            image: coin.image,           // original field
+            marketCap: coin.marketCap,
+            rank: coin.rank,
+            history: [],
+        }));
+    } catch (error) {
+        console.error("Erro na API de cripto:", error);
         return [];
     }
 }

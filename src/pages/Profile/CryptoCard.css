@@ -1,0 +1,198 @@
+/* CryptoCard.css */
+
+.crypto-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-width: 200px;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.crypto-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 12px 40px rgba(0, 210, 255, 0.1);
+}
+
+.crypto-card .card-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* ── Header ───────────────────────────────────── */
+.crypto-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.crypto-card__identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crypto-card__logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: rgba(255,255,255,0.08);
+}
+
+.crypto-card__logo-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.crypto-card .symbol-name-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.crypto-card__symbol {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.crypto-card__name {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ── Favourite button ─────────────────────────── */
+.crypto-card__fav-btn {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.crypto-card__fav-btn.favorited {
+    color: #f59e0b;
+}
+
+.crypto-card__fav-btn:hover {
+    color: #f59e0b;
+    transform: scale(1.2);
+}
+
+/* ── Price row ────────────────────────────────── */
+.crypto-card__price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.crypto-card .price-group {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.crypto-card__price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.crypto-card__change {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.crypto-card__change.positive {
+    color: var(--positive);
+    background: rgba(0, 230, 118, 0.12);
+}
+
+.crypto-card__change.negative {
+    color: var(--negative);
+    background: rgba(255, 61, 0, 0.12);
+}
+
+/* ── Footer ───────────────────────────────────── */
+.crypto-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 8px;
+}
+
+.crypto-card__rank {
+    background: rgba(0, 210, 255, 0.1);
+    color: var(--accent-color);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Compact State */
+.crypto-card.is-compact {
+    padding: 10px 15px;
+    min-width: 0;
+}
+
+.crypto-card.is-compact .card-content-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+}
+
+.crypto-card.is-compact .crypto-card__logo,
+.crypto-card.is-compact .crypto-card__logo-placeholder {
+    width: 32px;
+    height: 32px;
+}
+
+.crypto-card.is-compact .crypto-card__symbol {
+    font-size: 0.95rem;
+}
+
+.crypto-card.is-compact .crypto-card__price {
+    font-size: 1rem;
+}
+
+.crypto-card.is-compact .crypto-card__header {
+    flex-shrink: 0;
+}
+
+.crypto-card.is-compact .crypto-card__price-row {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.crypto-card.is-compact .price-group {
+    justify-content: flex-end;
+}

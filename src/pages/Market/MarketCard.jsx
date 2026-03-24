@@ -12,7 +12,8 @@ export default function MarketCard({
     isFavorited = false,
     onCardClick,
     onFavoriteClick,
-    onClose // Recebe função para fechar caso renderizado como painel lateral
+    onClose, // Recebe função para fechar caso renderizado como painel lateral
+    fullPanel = false // Nova prop para preencher todo o espaço
 }) {
     const isPositive = change >= 0;
 
@@ -22,7 +23,10 @@ export default function MarketCard({
         : [];
 
     return (
-        <div className="market-card-dashboard glass-panel" onClick={() => onCardClick && onCardClick(symbol)}>
+        <div 
+            className={`market-card-dashboard glass-panel ${fullPanel ? 'is-full-panel' : ''}`} 
+            onClick={() => onCardClick && onCardClick(symbol)}
+        >
             {/* Botão de Fechar opcional (para Painel Lateral) */}
             {onClose && (
                 <button 

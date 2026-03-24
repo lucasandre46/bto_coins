@@ -1,17 +1,30 @@
 /* Profile Screen */
 
+.profile-screen-wrapper {
+    max-width: 1400px !important;
+    width: 95% !important;
+    margin: 0 auto;
+}
+
 .profile-content {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
+.profile-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
 .profile-info {
     display: flex;
     align-items: center;
     gap: 20px;
-    border-bottom: 1px solid var(--panel-border);
-    padding-bottom: 30px;
 }
 
 .avatar-placeholder {
@@ -48,16 +61,109 @@
     display: inline-block;
 }
 
-.favorites-section h3 {
-    font-size: 1.8rem;
+.favorites-section h3,
+.asset-section-title {
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 25px;
+    margin-top: 30px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.profile-actions {
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.asset-grid.is-compact {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+}
+
+.asset-grid::-webkit-scrollbar {
+    width: 4px;
+}
+
+.asset-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.asset-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.profile-top-actions {
     display: flex;
-    gap: 15px;
+    gap: 12px;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--panel-border);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+}
+
+.icon-btn.logout:hover {
+    color: var(--negative);
+    border-color: var(--negative);
+    background: rgba(255, 61, 0, 0.1);
+}
+
+.filter-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--panel-border);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: rgba(0, 210, 255, 0.1);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
 }
 
 /* Split View Architecture */
@@ -66,6 +172,7 @@
     flex-direction: row;
     width: 100%;
     position: relative;
+    gap: 0;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -73,34 +180,55 @@
     width: 100%;
     flex-shrink: 0;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding-right: 20px;
 }
 
 .split-active .profile-left-panel {
-    width: 40%;
+    width: 380px; /* fixed width for the compact list */
 }
 
 .profile-right-panel {
     width: 0%;
     opacity: 0;
     overflow: hidden;
-    transform: translateX(100px);
+    transform: translateX(30px);
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .split-active .profile-right-panel {
-    width: 60%;
+    flex-grow: 1;
     opacity: 1;
     transform: translateX(0);
-    padding-left: 20px;
     overflow: visible;
 }
 
+.chart-drawer-content {
+    height: 100%;
+    width: 100%;
+    position: sticky;
+    top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .split-active .profile-left-panel {
+        width: 320px;
+    }
+}
+
 @media (max-width: 768px) {
+    .profile-split-container {
+        flex-direction: column;
+    }
+
     .split-active .profile-left-panel {
         display: none;
     }
+    
     .split-active .profile-right-panel {
         width: 100%;
-        padding-left: 0;
+    }
+    
+    .profile-left-panel {
+        padding-right: 0;
     }
 }

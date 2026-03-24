@@ -1,69 +1,100 @@
 .mini-card {
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-bottom: 1rem;
-    padding: 20px !important;
-    min-height: auto !important;
-    height: auto !important;
-    border-radius: 20px !important;
-}
-
-.mini-card .dashboard-logo {
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 10px !important;
-}
-
-.mini-card .dashboard-logo-placeholder {
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 10px !important;
-}
-
-.mini-card .dashboard-symbol {
-    font-size: 1.4rem !important;
-}
-
-.mini-card .dashboard-change {
-    font-size: 0.9rem !important;
-}
-
-.mini-card .dashboard-price {
-    font-size: 1.8rem !important;
-    letter-spacing: -1px !important;
-}
-
-.mini-card .favorite-btn-dashboard {
-    padding: 6px !important;
-}
-
-.mini-card .favorite-btn-dashboard svg {
-    width: 18px !important;
-    height: 18px !important;
-}
-
-.mini-card .asset-info {
-    gap: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 16px 20px !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    min-height: 150px !important; /* Override global 450px while keeping it compact */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .mini-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px); /* Match CryptoCard translateY */
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 12px 40px rgba(0, 210, 255, 0.1);
 }
 
-.favorites-list {
+.mini-card .card-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.mini-card .asset-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mini-card .dashboard-logo,
+.mini-card .dashboard-logo-placeholder {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0;
+}
+
+.mini-card .symbol-name-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.favorites-section {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.mini-card .dashboard-symbol {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: var(--text-primary);
 }
 
-.favorites-section h3 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
+.mini-card .dashboard-name {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.mini-card .price-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mini-card .price-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.mini-card .dashboard-price {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: var(--text-primary);
+}
+
+.mini-card .dashboard-change {
+    font-size: 0.8rem !important;
+    font-weight: 600;
+}
+
+/* Compact State */
+.mini-card.is-compact {
+    min-height: auto !important;
+    padding: 10px 15px !important;
+}
+
+.mini-card.is-compact .dashboard-logo,
+.mini-card.is-compact .dashboard-logo-placeholder {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.mini-card.is-compact .dashboard-symbol {
+    font-size: 0.95rem !important;
+}
+
+.mini-card.is-compact .dashboard-price {
+    font-size: 1rem !important;
 }
