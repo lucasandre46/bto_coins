@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 const API_BASE_URL = 'https://bto-api-isoj.vercel.app/market'; // Já incluí o /market aqui
+=======
+import { supabase } from '../../lib/supabase';
+
+const API_BASE_URL = 'http://localhost:3000/market';
+>>>>>>> Stashed changes
 
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
