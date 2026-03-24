@@ -1,7 +1,6 @@
 import { supabase } from '../../lib/supabase';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:3000'}/market`;
-
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'}/market`;
 export const AVAILABLE_SYMBOLS = [
     'PETR4', 'VALE3', 'ITUB4', 'MGLU3'
 ];

@@ -1,107 +1,111 @@
 .market-card-dashboard {
-    width: 100%;
-    max-width: 1800px;
-    /* Cinema mode: larger limits */
-    height: 90vh;
-    min-height: 600px;
-    padding: 50px;
-    border-radius: 40px;
+    /* Dimensões baseadas num formato mais retangular (panorâmico) como TradingView */
+    width: 95%;
+    max-width: 1400px;
+    height: 70vh; 
+    min-height: 500px;
+    padding: 30px 40px;
+    border-radius: 20px;
+
+    /* Paleta Deep Charcoal */
+    background-color: #1a1d24;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
     display: flex;
     flex-direction: column;
-    /* ... resto dos seus estilos ... */
+    cursor: default;
+    overflow: hidden;
 }
 
-.card-top-section {
+/* Layout Superior */
+.card-header-layout {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.asset-info {
+.company-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
-.dashboard-logo {
-    width: 90px;
-    /* Logo maior para acompanhar o card */
-    height: 90px;
-    border-radius: 20px;
-}
-
-.dashboard-symbol {
-    font-size: 3rem;
-    /* Nome da moeda maior */
-    font-weight: 800;
-}
-
-.dashboard-change {
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.price-info {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.dashboard-price {
-    font-size: 5rem;
-    /* Preço gigante como na sua imagem */
-    font-weight: 900;
-    letter-spacing: -2px;
-}
-
-.card-graph-area {
-    width: 100%;
-    flex: 1;
-    min-height: 300px;
-    /* Mais espaço para a linha do gráfico brilhar */
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 24px;
-    margin-top: 30px;
-    padding: 20px;
-}
-
-.favorite-btn-dashboard {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #fff;
-    padding: 10px;
+.company-logo-circle,
+.logo-placeholder {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    cursor: pointer;
-    transition: 0.2s;
+    background-color: #1c1f26;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    object-fit: contain;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4ade80;
 }
 
-.favorite-btn-dashboard svg {
-    width: 24px;
-    height: 24px;
+.name-variation-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.favorite-btn-dashboard:hover {
-    background: rgba(255, 255, 255, 0.2);
+.company-name {
+    font-size: 3.2rem;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
-.favorite-btn-dashboard.favorited {
-    color: #facc15;
-    /* Yellow star */
+.variation-text {
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.favorite-btn-dashboard.favorited:hover {
-    background: rgba(250, 204, 21, 0.2);
+.variation-text.positive {
+    color: #4ade80;
 }
 
-.card-footer-hint {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+.variation-text.negative {
+    color: #f87171;
+}
+
+/* Preço no Canto */
+.main-price-display {
+    font-size: 3.6rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -1px;
+}
+
+/* Área do Gráfico (Conforme o esboço: direita e inferior) */
+.graph-container-split {
+    flex: 1;
+    width: 100%;
+    margin-top: 25px;
+    min-height: 250px;
+    border-radius: 12px;
+    background-color: #1a1d24; /* Um tom de fundo isolado estilo mockup */
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+
+    /* Sombra interna leve para separar foco */
+    -webkit-box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.no-data-msg {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
